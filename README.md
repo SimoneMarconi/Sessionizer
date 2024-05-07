@@ -1,6 +1,4 @@
-##Sessionizer
-
-This is a quick bash script to open a new Tmux session using Neovim in one window# Tmux + Neovim Quick Setup Script
+# Tmux + Neovim Quick Setup Script
 
 This Bash script automates the process of opening a new Tmux session with Neovim running in one window. It's a handy tool for developers who frequently use Tmux and Neovim together for their workflow.
 
@@ -15,19 +13,19 @@ This Bash script automates the process of opening a new Tmux session with Neovim
 1. Clone this repository to your local machine:
 
     ```bash
-    git clone https://github.com/your-username/tmux-neovim-script.git
+    git clone https://github.com/SimoneMarconi/Sessionizer.git
     ```
 
 2. Change into the cloned directory:
 
     ```bash
-    cd tmux-neovim-script
+    cd Sessionizer
     ```
 
 3. Make the script executable:
 
     ```bash
-    chmod +x tmux_neovim_setup.sh
+    chmod +x session
     ```
 
 ## Usage
@@ -35,4 +33,4 @@ This Bash script automates the process of opening a new Tmux session with Neovim
 Simply execute the script to start a new Tmux session with Neovim running in one window:
 
 ```bash
-./tmux_neovim_setup.sh
+./session
