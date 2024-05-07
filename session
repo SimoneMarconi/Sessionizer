@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "$#" -eq 0 ];
+then
+    session="${PWD##*/}"
+
+else
+    session=$1
+fi
+
+if tmux has-session -t $session 2>/dev/null; then
+    echo "Session $session already exists. Attaching to it."
+    tmux attach-session -t $session
+else
+
+    tmux new-session -d -s $session
+
+    tmux new-window -t $session:2
+
+    tmux send-keys -t $session:2 "nvim ." C-m
+
+    tmux attach-session -t $session:2
+fi
