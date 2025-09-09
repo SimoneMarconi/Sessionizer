@@ -1,13 +1,28 @@
 #!/bin/bash
 
-SEARCH_DIR=${1:-.}
-SELECTED_DIR=$(find "$SEARCH_DIR" -type d | fzf --height 20% --border --prompt="Select a directory: ")
+# Start fzf from the home directory and allow directory selection
+dir=$(find ~ -type d 2>/dev/null | fzf --prompt="Select a directory: ")
 
-if [ -d "$SELECTED_DIR/.venv" ]; then
-    echo "venv found activating it"
-    source "$SELECTED_DIR/.venv/bin/activate"
-else
-    echo "venv not found"
+# Check if a directory was selected
+if [[ -z "$dir" ]]; then
+  echo "No directory selected. Exiting."
+  exit 1
 fi
 
-(cd "$SELECTED_DIR" && session)
+# Search for a .venv directory inside the selected directory or its subdirectories
+venv_path=$(find "$dir" -type d -name ".venv" 2>/dev/null | head -n 1)
+
+if [[ -z "$venv_path" ]]; then
+  echo "No .venv directory found in $dir or its subdirectories."
+  cd "$dir" && session
+fi
+
+# Activate the virtual environment
+if [[ -f "$venv_path/bin/activate" ]]; then
+    echo "Activating virtual environment at $venv_path..."
+  source "$venv_path/bin/activate"
+  cd "$dir" && session
+else
+  echo "No activate script found in $venv_path."
+  cd "$dir" && session
+fi
